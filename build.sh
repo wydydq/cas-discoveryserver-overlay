@@ -13,7 +13,14 @@ function bootrun() {
 }
 
 function run() {
-	package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5004,server=y,suspend=n -jar target/casdiscoveryserver.war 
+	case "$2" in
+	"peer1" | "peer2" | "peer3")
+		package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5004,server=y,suspend=n -jar target/casdiscoveryserver.war --spring.profiles.active="$2"
+	    ;;
+	*)
+	    package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5004,server=y,suspend=n -jar target/casdiscoveryserver.war
+	    ;;
+	esac
 }
 
 if [ $# -eq 0 ]; then
