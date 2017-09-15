@@ -1,0 +1,10 @@
+version: '2'
+services: 
+  peer3: 
+    image: docker.repo-jifang:5000/cas-discoveryserver-overlay:0.0.1
+#    hostname: peer3
+    ports:
+      - "8761:8761"
+    environment:
+      - spring.profiles.active=peer3
+      

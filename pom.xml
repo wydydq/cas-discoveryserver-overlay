@@ -6,7 +6,7 @@
     <groupId>org.apereo.cas</groupId>
     <artifactId>cas-discoveryserver-overlay</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>0.0.1</version>
 
     <build>
         <plugins>
@@ -55,6 +55,24 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
             </plugin>
+            <!-- 配置docker插件，通过命令mvn package docker:build 生成镜像文件 -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.11</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<forceTags>true</forceTags>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
@@ -74,6 +92,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.image.prefix>docker.repo-jifang:5000</docker.image.prefix>
     </properties>
 
     <repositories>
