@@ -5,6 +5,6 @@ services:
 #    hostname: peer1
     ports:
       - "8761:8761"
-    environment:
+    environment: 
       - spring.profiles.active=peer1
  
